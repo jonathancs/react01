@@ -102,9 +102,10 @@
     color: var(--white);
     font-weight: bold;
     cursor: pointer;
-    outline: 2px solid red;
-
     transition: background-color 0.1s;
+
+    visibility: hidden;
+    max-height: 0;
 
 }
 
@@ -115,4 +116,3 @@
 .commentList {
     margin-top: 2rem;
 }
-
