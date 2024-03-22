@@ -5,12 +5,13 @@ import {Avatar} from './Avatar'
 import { Comment } from './Comment';
 
 import styles from './Post.module.css';
-
-const comments = [
-    1,
-]
+import { useState } from 'react';
 
 export function Post ({author, publishedAt, content }) {
+    const [comments, setComments] = useState([
+        1,
+        2,
+    ])
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
         locale: ptBR,
     })
@@ -19,6 +20,12 @@ export function Post ({author, publishedAt, content }) {
         locale: ptBR,
         addSuffix: true,
     })
+
+    function handleCreateNewComment() {
+        event.preventDefault()
+
+        setComments([...comments, comments.length + 1])
+    }
 
     return (
         <article className={styles.post}>
@@ -46,7 +53,7 @@ export function Post ({author, publishedAt, content }) {
                 })}
             </div>
 
-            <form className={styles.commentForm}>
+            <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
 
                 <textarea
