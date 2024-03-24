@@ -9,9 +9,11 @@ import { useState } from 'react';
 
 export function Post ({author, publishedAt, content }) {
     const [comments, setComments] = useState([
-        1,
-        2,
+        'Post muito bacana HEIN'
     ])
+    const [newCommentText, setNewCommentText] = useState('')
+    
+    
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
         locale: ptBR,
     })
@@ -24,7 +26,20 @@ export function Post ({author, publishedAt, content }) {
     function handleCreateNewComment() {
         event.preventDefault()
 
-        setComments([...comments, comments.length + 1])
+        const newCommentText = event.target.comment.value
+
+        setComments([...comments, newCommentText])
+        setNewCommentText('')
+
+        // event.target.comment.value = ''
+        // para esvaziar o textarea após submit. FUNCIONA.  mas....
+        // programacao imperativa
+        // diferente de
+        // programacao declarativa
+    }
+
+    function handleNewCommentChange() {
+        setNewCommentText(event.target.value)
     }
 
     return (
@@ -57,7 +72,10 @@ export function Post ({author, publishedAt, content }) {
                 <strong>Deixe seu feedback</strong>
 
                 <textarea
+                    name="comment"
                     placeholder="Deixe seu comentário"
+                    value={newCommentText}
+                    onChange={handleNewCommentChange}
                 />
 
                 <footer>
@@ -67,7 +85,7 @@ export function Post ({author, publishedAt, content }) {
 
             <div className={styles.commentList}>
                 {comments.map(comments => {
-                    return <Comment />
+                    return <Comment content={comments}/>
                 })}
             </div>
         </article>
