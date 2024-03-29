@@ -38,12 +38,20 @@ export function Post ({author, publishedAt, content }) {
         // programacao declarativa
     }
 
+    function handleNewCommentInvalid () {
+        
+    }
+
     function handleNewCommentChange() {
         setNewCommentText(event.target.value)
     }
 
-    function deleteComment (comment) {
-        console.log(`deletar comentário ${comment}`)
+    function deleteComment (commentToDelete) {
+        const commentsWithoutDeletedOne = comments.filter(comment => {
+            return comment != commentToDelete
+        })
+        
+        setComments(commentsWithoutDeletedOne);
 
     }
 
@@ -81,6 +89,8 @@ export function Post ({author, publishedAt, content }) {
                     placeholder="Deixe seu comentário"
                     value={newCommentText}
                     onChange={handleNewCommentChange}
+                    onInvalid={handleNewCommentInvalid}
+                    required
                 />
 
                 <footer>
