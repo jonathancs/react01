@@ -39,10 +39,11 @@ export function Post ({author, publishedAt, content }) {
     }
 
     function handleNewCommentInvalid () {
-        
+        event.target.setCustomValidity('esse campo é obri')
     }
 
     function handleNewCommentChange() {
+        event.target.setCustomValidity('')
         setNewCommentText(event.target.value)
     }
 
@@ -50,10 +51,12 @@ export function Post ({author, publishedAt, content }) {
         const commentsWithoutDeletedOne = comments.filter(comment => {
             return comment != commentToDelete
         })
-        
+
         setComments(commentsWithoutDeletedOne);
 
     }
+
+    const isNewCommentEmpty = newCommentText.length == 0
 
     return (
         <article className={styles.post}>
@@ -94,7 +97,7 @@ export function Post ({author, publishedAt, content }) {
                 />
 
                 <footer>
-                    <button type="submit">Publicar</button>
+                    <button type="submit" disabled={isNewCommentEmpty}>Publicar</button>
                 </footer>
             </form>
 
